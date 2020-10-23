@@ -219,6 +219,7 @@ const App = () => {
       <h2>Choose your type of duck</h2>
       <div className="menu">
         <Button
+          className="buttoom"
           onClick={(event) => {
             event.preventDefault();
             setMallardDuckList(
@@ -231,6 +232,7 @@ const App = () => {
           Mallard Duck
         </Button>
         <Button
+          className="buttoom"
           onClick={(event) => {
             event.preventDefault();
             setWhiteDuckList(
@@ -241,6 +243,7 @@ const App = () => {
           White Duck
         </Button>
         <Button
+          className="buttoom"
           onClick={(event) => {
             event.preventDefault();
             setToyDuckList(
@@ -251,6 +254,7 @@ const App = () => {
           Toy Duck
         </Button>
         <Button
+          className="buttoom"
           onClick={(event) => {
             event.preventDefault();
             setWoodDuckList(
