@@ -1,0 +1,22 @@
+.image {
+  height: 100px;
+  width: auto;
+}
+
+h1,h2{
+    text-align: center;
+}
+h2{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.mallardDuck{
+    padding-top: 10px;
+}
+
+.container {
+   display: flex;
+  flex-wrap: wrap;
+
+}
