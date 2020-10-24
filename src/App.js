@@ -34,19 +34,20 @@ class NoFly extends FlyBehaviour {
 
 class QuackSound extends QuackBehaviour {
   quack = () => {
-    return alert("Quack Quack !");
+    console.log("I can quack quack");
+    return <p>Quack Quack</p>;
   };
 }
 
 class SqueakSound extends QuackBehaviour {
   quack = () => {
-    return alert("Squeak Squeak !");
+    return <p>Squeak Squeak</p>;
   };
 }
 
 class SilentSound extends QuackBehaviour {
   quack = () => {
-    return alert("I am a Silent Duck !");
+    return <p>I am a silent</p>;
   };
 }
 
@@ -65,14 +66,21 @@ class Duck extends React.Component {
 }
 
 class MallardDuck extends Duck {
+  constructor(props) {
+    super();
+    this.state = {
+      canFly: false,
+      canQuack: false,
+    };
+  }
   quack = () => {
     const quack = new QuackSound();
-    quack.quack();
+    return quack.quack();
   };
 
   fly = () => {
     const fly = new FlyWings();
-    fly.fly();
+    return fly.fly();
   };
 
   render() {
@@ -82,7 +90,7 @@ class MallardDuck extends Duck {
         <Button
           onClick={(event) => {
             event.preventDefault();
-            this.fly();
+            this.setState({ canFly: true });
           }}
         >
           Fly
@@ -90,25 +98,33 @@ class MallardDuck extends Duck {
         <Button
           onClick={(event) => {
             event.preventDefault();
-            this.quack();
+            this.setState({ canQuack: true });
           }}
         >
           Quack
         </Button>
+        {this.state.canQuack ? this.quack() : null}
       </div>
     );
   }
 }
 
 class WhiteDuck extends Duck {
+  constructor(props) {
+    super();
+    this.state = {
+      canFly: false,
+      canQuack: false,
+    };
+  }
   quack = () => {
     const quack = new QuackSound();
-    quack.quack();
+    return quack.quack();
   };
 
   fly = () => {
     const fly = new FlyWings();
-    fly.fly();
+    return fly.fly();
   };
 
   render() {
@@ -126,25 +142,33 @@ class WhiteDuck extends Duck {
         <Button
           onClick={(event) => {
             event.preventDefault();
-            this.quack();
+            this.setState({ canQuack: true });
           }}
         >
           Quack
         </Button>
+        {this.state.canQuack ? this.quack() : null}
       </div>
     );
   }
 }
 
 class WoodDuck extends Duck {
+  constructor(props) {
+    super();
+    this.state = {
+      canFly: false,
+      canQuack: false,
+    };
+  }
   quack = () => {
     const quack = new SilentSound();
-    quack.quack();
+    return quack.quack();
   };
 
   fly = () => {
     const fly = new NoFly();
-    fly.fly();
+    return fly.fly();
   };
 
   render() {
@@ -162,25 +186,33 @@ class WoodDuck extends Duck {
         <Button
           onClick={(event) => {
             event.preventDefault();
-            this.quack();
+            this.setState({ canQuack: true });
           }}
         >
           Quack
         </Button>
+        {this.state.canQuack ? this.quack() : null}
       </div>
     );
   }
 }
 
 class ToyDuck extends Duck {
+  constructor(props) {
+    super();
+    this.state = {
+      canFly: false,
+      canQuack: false,
+    };
+  }
   quack = () => {
     const quack = new SqueakSound();
-    quack.quack();
+    return quack.quack();
   };
 
   fly = () => {
     const fly = new NoFly();
-    fly.fly();
+    return fly.fly();
   };
 
   render() {
@@ -198,11 +230,12 @@ class ToyDuck extends Duck {
         <Button
           onClick={(event) => {
             event.preventDefault();
-            this.quack();
+            this.setState({ canQuack: true });
           }}
         >
           Quack
         </Button>
+        {this.state.canQuack ? this.quack() : null}
       </div>
     );
   }
