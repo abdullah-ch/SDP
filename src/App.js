@@ -22,13 +22,13 @@ class QuackBehaviour extends React.Component {
 
 class FlyWings extends FlyBehaviour {
   fly = () => {
-    return alert("This duck can Fly !");
+    return <p>I can Fly</p>;
   };
 }
 
 class NoFly extends FlyBehaviour {
   fly = () => {
-    return alert("This Duck cannot Fly!");
+    return <p>I cannot Fly</p>;
   };
 }
 
@@ -104,6 +104,7 @@ class MallardDuck extends Duck {
           Quack
         </Button>
         {this.state.canQuack ? this.quack() : null}
+        {this.state.canFly ? this.fly() : null}
       </div>
     );
   }
@@ -134,7 +135,7 @@ class WhiteDuck extends Duck {
         <Button
           onClick={(event) => {
             event.preventDefault();
-            this.fly();
+            this.setState({ canFly: true });
           }}
         >
           Fly
@@ -148,6 +149,7 @@ class WhiteDuck extends Duck {
           Quack
         </Button>
         {this.state.canQuack ? this.quack() : null}
+        {this.state.canFly ? this.fly() : null}
       </div>
     );
   }
@@ -178,7 +180,7 @@ class WoodDuck extends Duck {
         <Button
           onClick={(event) => {
             event.preventDefault();
-            this.fly();
+            this.setState({ canFly: true });
           }}
         >
           Fly
@@ -192,6 +194,7 @@ class WoodDuck extends Duck {
           Quack
         </Button>
         {this.state.canQuack ? this.quack() : null}
+        {this.state.canFly ? this.fly() : null}
       </div>
     );
   }
@@ -222,7 +225,7 @@ class ToyDuck extends Duck {
         <Button
           onClick={(event) => {
             event.preventDefault();
-            this.fly();
+            this.setState({ canFly: true });
           }}
         >
           Fly
@@ -236,6 +239,7 @@ class ToyDuck extends Duck {
           Quack
         </Button>
         {this.state.canQuack ? this.quack() : null}
+        {this.state.canFly ? this.fly() : null}
       </div>
     );
   }

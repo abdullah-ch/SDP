@@ -1,6 +1,7 @@
 .image {
   height: 100px;
   width: auto;
+  
 }
 
 h1,h2{
@@ -25,4 +26,27 @@ h2{
    display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.canFly{
+ animation: fly-animation 5s;
+    position: relative;
+}
+
+@keyframes fly-animation{
+    from{
+        top: 0;
+        left: 0;
+    }
+    40%{
+        top: -400px;
+        left: 600px;
+    }
+    70%{
+        top: 0;
+    }
+    to{
+        top: 0;
+        left: 0;
+    }
 }
