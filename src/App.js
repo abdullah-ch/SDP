@@ -47,7 +47,7 @@ class SqueakSound extends QuackBehaviour {
 
 class SilentSound extends QuackBehaviour {
   quack = () => {
-    return <p>I am a silent</p>;
+    return <p>I am a silent duck</p>;
   };
 }
 
@@ -86,7 +86,14 @@ class MallardDuck extends Duck {
   render() {
     return (
       <div>
-        <img className="image" src={mallardDuck} alt="mallardDuck" />
+        <img
+          className={`image ${this.state.canFly ? "canFly" : ""}`}
+          src={mallardDuck}
+          alt="mallardDuck"
+          onAnimationEnd={() => {
+            this.setState({ canFly: false });
+          }}
+        />
         <Button
           onClick={(event) => {
             event.preventDefault();
@@ -131,7 +138,14 @@ class WhiteDuck extends Duck {
   render() {
     return (
       <div>
-        <img className="image" src={whiteDuck} alt="whiteDuck" />
+        <img
+          className={`image ${this.state.canFly ? "canFly" : ""}`}
+          onAnimationEnd={() => {
+            this.setState({ canFly: false });
+          }}
+          src={whiteDuck}
+          alt="whiteDuck"
+        />
         <Button
           onClick={(event) => {
             event.preventDefault();
