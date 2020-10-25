@@ -1,52 +1,69 @@
+
 .image {
   height: 100px;
   width: auto;
-  
 }
 
-h1,h2{
-    text-align: center;
+h1,
+h2 {
+  text-align: center;
 }
-h2{
-    padding-top: 10px;
-    padding-bottom: 10px;
+h2 {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
-.mallardDuck{
-    padding-top: 10px;
+.mallardDuck {
+  padding-top: 10px;
 }
 
 .container {
-   display: flex;
+  display: flex;
   flex-wrap: wrap;
+  background-color: black;
+  color: aliceblue;
 
 }
 
 .menu {
-   display: flex;
+  margin-left: 400px;
   justify-content: center;
   align-items: center;
+  padding-bottom: 40px;
 }
 
-.canFly{
- animation: fly-animation 5s;
-    position: relative;
+.canFly {
+  animation: fly-animation 5s;
+  position: relative;
 }
 
-@keyframes fly-animation{
-    from{
-        top: 0;
-        left: 0;
-    }
-    40%{
-        top: -400px;
-        left: 600px;
-    }
-    70%{
-        top: 0;
-    }
-    to{
-        top: 0;
-        left: 0;
-    }
+@keyframes fly-animation {
+  from {
+    top: 0;
+    left: 0;
+  }
+  40% {
+    top: -400px;
+    left: 600px;
+  }
+  70% {
+    top: 0;
+  }
+  to {
+    top: 0;
+    left: 0;
+  }
+}
+
+.buttoom {
+  margin-left: 30px;
+}
+
+.duck {
+  margin: 10px;
+  width: 100%;
+}
+
+.eventButton {
+  margin: 4px;
 }

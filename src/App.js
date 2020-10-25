@@ -4,7 +4,6 @@ import mallardDuck from "./images/mallard.png";
 import toyDuck from "./images/toy.png";
 import woodDuck from "./images/wood.png";
 import whiteDuck from "./images/white.png";
-
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -85,7 +84,7 @@ class MallardDuck extends Duck {
 
   render() {
     return (
-      <div>
+      <div className="duck">
         <img
           className={`image ${this.state.canFly ? "canFly" : ""}`}
           src={mallardDuck}
@@ -95,6 +94,7 @@ class MallardDuck extends Duck {
           }}
         />
         <Button
+          className="eventButton"
           onClick={(event) => {
             event.preventDefault();
             this.setState({ canFly: true });
@@ -103,6 +103,7 @@ class MallardDuck extends Duck {
           Fly
         </Button>
         <Button
+          className="eventButton"
           onClick={(event) => {
             event.preventDefault();
             this.setState({ canQuack: true });
@@ -137,7 +138,7 @@ class WhiteDuck extends Duck {
 
   render() {
     return (
-      <div>
+      <div className="duck">
         <img
           className={`image ${this.state.canFly ? "canFly" : ""}`}
           onAnimationEnd={() => {
@@ -147,6 +148,7 @@ class WhiteDuck extends Duck {
           alt="whiteDuck"
         />
         <Button
+          className="eventButton"
           onClick={(event) => {
             event.preventDefault();
             this.setState({ canFly: true });
@@ -155,6 +157,7 @@ class WhiteDuck extends Duck {
           Fly
         </Button>
         <Button
+          className="eventButton"
           onClick={(event) => {
             event.preventDefault();
             this.setState({ canQuack: true });
@@ -189,9 +192,10 @@ class WoodDuck extends Duck {
 
   render() {
     return (
-      <div>
+      <div className="duck">
         <img className="image" src={woodDuck} alt="woodDuck" />
         <Button
+          className="eventButton"
           onClick={(event) => {
             event.preventDefault();
             this.setState({ canFly: true });
@@ -200,6 +204,7 @@ class WoodDuck extends Duck {
           Fly
         </Button>
         <Button
+          className="eventButton"
           onClick={(event) => {
             event.preventDefault();
             this.setState({ canQuack: true });
@@ -234,9 +239,10 @@ class ToyDuck extends Duck {
 
   render() {
     return (
-      <div>
+      <div className="duck">
         <img className="image" src={toyDuck} alt="toyDuck" />
         <Button
+          className="eventButton"
           onClick={(event) => {
             event.preventDefault();
             this.setState({ canFly: true });
@@ -245,6 +251,7 @@ class ToyDuck extends Duck {
           Fly
         </Button>
         <Button
+          className="eventButton"
           onClick={(event) => {
             event.preventDefault();
             this.setState({ canQuack: true });
@@ -265,7 +272,7 @@ const App = () => {
   const [toyDuckList, setToyDuckList] = useState([]);
 
   return (
-    <div>
+    <div >
       <h1>Welcome to Sim U Duck !</h1>
       <h2>Choose your type of duck</h2>
       <div className="menu">
