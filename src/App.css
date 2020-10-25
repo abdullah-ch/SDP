@@ -1,16 +1,103 @@
+* {
+  background-color: black;
+  color: aliceblue;
+}
 
+.main {
+  display: flexbox;
+}
+.heading1 {
+  display: inline;
+  float: left;
+  padding-left: 30px;
+  font-size: 3em;
+}
+
+.heading2 {
+  display: inline;
+  float: right;
+  padding-right: 30px;
+  font-size: 3em;
+}
+
+.react {
+  padding-top: 60px;
+}
+.react h1 {
+  display: inline;
+  font-size: 2.6em;
+}
+.react img {
+  display: inline;
+  width: 190px;
+  height: auto;
+  padding-bottom: 10px;
+}
+
+.heading3 {
+  text-align: center;
+}
+
+.menu {
+  justify-content: center;
+  text-align: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.buttoom {
+  margin-left: 50px;
+  width: 20% !important;
+  height: auto !important;
+  font-weight: bolder;
+}
+
+.canFly {
+  animation: fly-animation 5s;
+  position: relative;
+}
+
+.image {
+  height:100px;
+  width: auto;
+  background-color: none;
+}
+
+@keyframes fly-animation {
+  from {
+    top: 0;
+    left: 0;
+  }
+  40% {
+    top: -400px;
+    left: 600px;
+  }
+  70% {
+    top: 0;
+  }
+  to {
+    top: 0;
+    left: 0;
+  }
+}
+
+.duck {
+  margin: 10px;
+  width: 100%;
+}
+
+.eventButton {
+  margin: 4px;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+/* 
 .image {
   height: 100px;
   width: auto;
-}
-
-h1,
-h2 {
-  text-align: center;
-}
-h2 {
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
 
 .mallardDuck {
@@ -20,8 +107,6 @@ h2 {
 .container {
   display: flex;
   flex-wrap: wrap;
-  background-color: black;
-  color: aliceblue;
 
 }
 
@@ -66,4 +151,4 @@ h2 {
 
 .eventButton {
   margin: 4px;
-}
+} */

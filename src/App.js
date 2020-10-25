@@ -4,6 +4,7 @@ import mallardDuck from "./images/mallard.png";
 import toyDuck from "./images/toy.png";
 import woodDuck from "./images/wood.png";
 import whiteDuck from "./images/white.png";
+import react from "./images/react.png";
 import quackSound from "./music/Duck-quack.mp3";
 import squeakSound from "./music/squeaky-toy-sound.mp3";
 
@@ -282,14 +283,14 @@ const App = () => {
   const [toyDuckList, setToyDuckList] = useState([]);
 
   return (
-    <div>
-      <h1 style={{ fontSize: "400%" }}>SDP Assignment 1</h1>
-      <h1 style={({ fontSize: "300%" }, { fontWeight: "bold" })}>Group-23</h1>
-      <h1 style={({ fontSize: "300%" }, { fontWeight: "bold" })}>
-        This Project is Powered By React JS
-      </h1>
-      <h1 style={{ fontSize: "300%" }}>Welcome to Sim U Duck !</h1>
-      <h2 style={{ fontSize: "250%" }}>Choose your type of duck</h2>
+    <div className="main">
+      <h1 className="heading1">SDP Assignment 1</h1>
+      <h1 className="heading2">Group-23</h1>
+      <div className="react">
+        <h1>This Project is Powered By</h1>
+        <img src={react} alt="react" />
+      </div>
+      <h2 className="heading3"> Welcome to Sim U Duck. Choose your type of Duck !</h2>
       <div className="menu">
         <Button
           className="buttoom"
