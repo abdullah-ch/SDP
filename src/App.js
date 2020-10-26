@@ -46,13 +46,6 @@ class QuackSound extends QuackBehaviour {
     return <p>Quack Quack</p>;
   };
 
-  render() {
-    return (
-      <div>
-        <Duck QuackSound="Hello....." />
-      </div>
-    );
-  }
 }
 
 
@@ -106,10 +99,10 @@ class MallardDuck extends Duck {
   }
 
   quack = () => {
-    // const quack = new QuackSound();
-    //return quack.quack();
-    const quack = new Duck();
-    return quack.QuackSound();
+     const quack = new QuackSound();
+    return quack.quack();
+    // const quack = new Duck();
+    // return quack.QuackSound();
   };
 
   fly = () => {
