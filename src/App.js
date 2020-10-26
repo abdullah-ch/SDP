@@ -36,11 +36,26 @@ class NoFly extends FlyBehaviour {
 }
 
 class QuackSound extends QuackBehaviour {
+  constructor(props) {
+    super(props);
+    console.log(this.props);
+  }
+
   quack = () => {
-    console.log("I can quack quack");
+    console.log("Quacking");
     return <p>Quack Quack</p>;
   };
+
+  render() {
+    return (
+      <div>
+        <Duck QuackSound="Hello....." />
+      </div>
+    );
+  }
 }
+
+
 
 class SqueakSound extends QuackBehaviour {
   quack = () => {
@@ -55,17 +70,28 @@ class SilentSound extends QuackBehaviour {
 }
 
 class Duck extends React.Component {
-  /*constructor(){
-        //Javascript doesn't have datatypes as such
-        //otherwise these would have been
-        //QuackBehavior q;
-        //Flybehavior f;
-        let q;//for quack
-        let f;//for fly
-    }*/
-  render() {
-    return;
+  constructor(props) {
+    super(props);
+    console.log("bruh", this.props);
   }
+
+  QuackSound = () => {
+    return this.props.QuackSound;
+  };
+
+  // FlyWings = () => {
+  //   return this.props.FlyWings;
+  // };
+  // NoFly = () => {
+  //   return this.props.NoFly;
+  // };
+  // SqueakSound = () => {
+  //   return this.props.SqueakSound;
+  // };
+  // QuackSound = () => {};
+  // SilentSound = () => {
+  //   return this.props.SilentSound;
+  // };
 }
 
 class MallardDuck extends Duck {
@@ -76,11 +102,14 @@ class MallardDuck extends Duck {
       canQuack: false,
       quackSound: new Audio(quackSound),
     };
+
   }
 
   quack = () => {
-    const quack = new QuackSound();
-    return quack.quack();
+    // const quack = new QuackSound();
+    //return quack.quack();
+    const quack = new Duck();
+    return quack.QuackSound();
   };
 
   fly = () => {
@@ -290,7 +319,10 @@ const App = () => {
         <h1>This Project is Powered By</h1>
         <img src={react} alt="react" />
       </div>
-      <h2 className="heading3"> Welcome to Sim U Duck. Choose your type of Duck !</h2>
+      <h2 className="heading3">
+        {" "}
+        Welcome to Sim U Duck. Choose your type of Duck !
+      </h2>
       <div className="menu">
         <Button
           className="buttoom"
