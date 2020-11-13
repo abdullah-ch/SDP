@@ -1,6 +1,6 @@
 * {
-  background-color: black;
-  color: aliceblue;
+  background-color: #fff;
+  color: black;
 }
 
 .main {
@@ -51,6 +51,9 @@
   height: auto !important;
   font-weight: bolder;
 }
+.buttoom :hover {
+  background-color: RGB(229, 9, 20);
+}
 
 .canFly {
   animation: fly-animation 5s;
@@ -58,7 +61,7 @@
 }
 
 .image {
-  height:100px;
+  height: 70px;
   width: auto;
   background-color: none;
 }
@@ -90,65 +93,28 @@
   margin: 4px;
 }
 
+.inline {
+  display: inline;
+}
 .container {
   display: flex;
   flex-wrap: wrap;
-}
-/* 
-.image {
-  height: 100px;
-  width: auto;
-}
-
-.mallardDuck {
+  width: 0px;
+  border: 15px solid green;
   padding-top: 10px;
+  margin: 0px;
 }
 
-.container {
+.Grid {
+  box-shadow: 0px 0px 3px 0px #828282;
+}
+
+.behaviour {
   display: flex;
   flex-wrap: wrap;
-
-}
-
-.menu {
-  margin-left: 400px;
   justify-content: center;
-  align-items: center;
-  padding-bottom: 40px;
 }
 
-.canFly {
-  animation: fly-animation 5s;
-  position: relative;
+.apiData {
+   padding-left: 20px;
 }
-
-@keyframes fly-animation {
-  from {
-    top: 0;
-    left: 0;
-  }
-  40% {
-    top: -400px;
-    left: 600px;
-  }
-  70% {
-    top: 0;
-  }
-  to {
-    top: 0;
-    left: 0;
-  }
-}
-
-.buttoom {
-  margin-left: 30px;
-}
-
-.duck {
-  margin: 10px;
-  width: 100%;
-}
-
-.eventButton {
-  margin: 4px;
-} */

@@ -1,23 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Button } from "react-bootstrap";
 import mallardDuck from "./images/mallard.png";
 import toyDuck from "./images/toy.png";
 import woodDuck from "./images/wood.png";
 import whiteDuck from "./images/white.png";
-import react from "./images/react.png";
 import quackSound from "./music/Duck-quack.mp3";
 import squeakSound from "./music/squeaky-toy-sound.mp3";
-
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-class FlyBehaviour extends React.Component {
+class FlyBehaviour {
   fly = () => {
     // abstract
   };
 }
 
-class QuackBehaviour extends React.Component {
+class QuackBehaviour {
   quack = () => {
     // abstract
   };
@@ -36,19 +35,11 @@ class NoFly extends FlyBehaviour {
 }
 
 class QuackSound extends QuackBehaviour {
-  constructor(props) {
-    super(props);
-    console.log(this.props);
-  }
-
   quack = () => {
     console.log("Quacking");
     return <p>Quack Quack</p>;
   };
-
 }
-
-
 
 class SqueakSound extends QuackBehaviour {
   quack = () => {
@@ -63,28 +54,23 @@ class SilentSound extends QuackBehaviour {
 }
 
 class Duck extends React.Component {
-  constructor(props) {
-    super(props);
-    console.log("bruh", this.props);
-  }
-
   QuackSound = () => {
     return this.props.QuackSound;
   };
 
-  // FlyWings = () => {
-  //   return this.props.FlyWings;
-  // };
-  // NoFly = () => {
-  //   return this.props.NoFly;
-  // };
-  // SqueakSound = () => {
-  //   return this.props.SqueakSound;
-  // };
-  // QuackSound = () => {};
-  // SilentSound = () => {
-  //   return this.props.SilentSound;
-  // };
+  FlyWings = () => {
+    return this.props.FlyWings;
+  };
+  NoFly = () => {
+    return this.props.NoFly;
+  };
+  SqueakSound = () => {
+    return this.props.SqueakSound;
+  };
+  QuackSound = () => {};
+  SilentSound = () => {
+    return this.props.SilentSound;
+  };
 }
 
 class MallardDuck extends Duck {
@@ -92,14 +78,27 @@ class MallardDuck extends Duck {
     super();
     this.state = {
       canFly: false,
+      canNoFly: false,
       canQuack: false,
+      canSqueak: false,
+      isSilent: false,
       quackSound: new Audio(quackSound),
+      squeakSound: new Audio(squeakSound),
+      apiData: [],
     };
-
   }
 
+  componentDidMount = async () => {
+    let { data } = await axios.get(`http://localhost:5000/ducks`);
+    this.setState({
+      apiData: data,
+    });
+
+    console.log(this.state.apiData);
+  };
+
   quack = () => {
-     const quack = new QuackSound();
+    const quack = new QuackSound();
     return quack.quack();
     // const quack = new Duck();
     // return quack.QuackSound();
@@ -109,7 +108,20 @@ class MallardDuck extends Duck {
     const fly = new FlyWings();
     return fly.fly();
   };
+  squeak = () => {
+    const quack = new SqueakSound();
+    return quack.quack();
+  };
 
+  noFly = () => {
+    const fly = new NoFly();
+    return fly.fly();
+  };
+
+  silent = () => {
+    const quack = new SilentSound();
+    return quack.quack();
+  };
   render() {
     return (
       <div className="duck">
@@ -121,27 +133,73 @@ class MallardDuck extends Duck {
             this.setState({ canFly: false });
           }}
         />
-        <Button
-          className="eventButton"
-          onClick={(event) => {
-            event.preventDefault();
-            this.setState({ canFly: true });
-          }}
-        >
-          Fly
-        </Button>
-        <Button
-          className="eventButton"
-          onClick={(event) => {
-            event.preventDefault();
-            this.setState({ canQuack: true });
-            this.state.quackSound.play();
-          }}
-        >
-          Quack
-        </Button>
+        {this.state.apiData.flyWithWings ? (
+          <Button
+            className="eventButton"
+            onClick={(event) => {
+              event.preventDefault();
+              this.setState({ canFly: true });
+            }}
+          >
+            Fly
+          </Button>
+        ) : null}
+
+        {this.state.apiData.quack ? (
+          <Button
+            className="eventButton"
+            onClick={(event) => {
+              event.preventDefault();
+              this.setState({ canQuack: true });
+              this.state.quackSound.play();
+            }}
+          >
+            Quack
+          </Button>
+        ) : null}
+
+        {this.state.apiData.squeak ? (
+          <Button
+            className="eventButton"
+            onClick={(event) => {
+              event.preventDefault();
+              this.setState({ canSqueak: true });
+              this.state.squeakSound.play();
+            }}
+          >
+            Squeak
+          </Button>
+        ) : null}
+
+        {this.state.apiData.silent ? (
+          <Button
+            className="eventButton"
+            onClick={(event) => {
+              event.preventDefault();
+              this.setState({ isSilent: true });
+            }}
+          >
+            Silent
+          </Button>
+        ) : null}
+
+        {this.state.apiData.noFly ? (
+          <Button
+            className="eventButton"
+            onClick={(event) => {
+              event.preventDefault();
+              this.setState({ canNoFly: true });
+            }}
+          >
+            No Fly
+          </Button>
+        ) : null}
+
         {this.state.canQuack ? this.quack() : null}
         {this.state.canFly ? this.fly() : null}
+        {this.state.canSqueak ? this.squeak() : null}
+        {this.state.isSilent ? this.silent() : null}
+        {this.state.canNoFly ? this.noFly() : null}
       </div>
     );
   }
@@ -152,52 +210,128 @@ class WhiteDuck extends Duck {
     super();
     this.state = {
       canFly: false,
+      canNoFly: false,
       canQuack: false,
+      canSqueak: false,
+      isSilent: false,
       quackSound: new Audio(quackSound),
+      squeakSound: new Audio(squeakSound),
+      apiData: [],
     };
   }
+
+  componentDidMount = async () => {
+    let { data } = await axios.get(`http://localhost:5000/ducks`);
+    this.setState({
+      apiData: data,
+    });
+
+    console.log(this.state.apiData);
+  };
+
   quack = () => {
     const quack = new QuackSound();
     return quack.quack();
+    // const quack = new Duck();
+    // return quack.QuackSound();
   };
 
   fly = () => {
     const fly = new FlyWings();
     return fly.fly();
   };
+  squeak = () => {
+    const quack = new SqueakSound();
+    return quack.quack();
+  };
 
+  noFly = () => {
+    const fly = new NoFly();
+    return fly.fly();
+  };
+
+  silent = () => {
+    const quack = new SilentSound();
+    return quack.quack();
+  };
   render() {
     return (
       <div className="duck">
         <img
           className={`image ${this.state.canFly ? "canFly" : ""}`}
+          src={whiteDuck}
+          alt="whiteDuck"
           onAnimationEnd={() => {
             this.setState({ canFly: false });
           }}
-          src={whiteDuck}
-          alt="whiteDuck"
         />
-        <Button
-          className="eventButton"
-          onClick={(event) => {
-            event.preventDefault();
-            this.setState({ canFly: true });
-          }}
-        >
-          Fly
-        </Button>
-        <Button
-          className="eventButton"
-          onClick={(event) => {
-            event.preventDefault();
-            this.setState({ canQuack: true });
-            this.state.quackSound.play();
-          }}
-        >
-          Quack
-        </Button>
+        {this.state.apiData.flyWithWings ? (
+          <Button
+            className="eventButton"
+            onClick={(event) => {
+              event.preventDefault();
+              this.setState({ canFly: true });
+            }}
+          >
+            Fly
+          </Button>
+        ) : null}
+
+        {this.state.apiData.quack ? (
+          <Button
+            className="eventButton"
+            onClick={(event) => {
+              event.preventDefault();
+              this.setState({ canQuack: true });
+              this.state.quackSound.play();
+            }}
+          >
+            Quack
+          </Button>
+        ) : null}
+
+        {this.state.apiData.squeak ? (
+          <Button
+            className="eventButton"
+            onClick={(event) => {
+              event.preventDefault();
+              this.setState({ canSqueak: true });
+              this.state.squeakSound.play();
+            }}
+          >
+            Squeak
+          </Button>
+        ) : null}
+
+        {this.state.apiData.silent ? (
+          <Button
+            className="eventButton"
+            onClick={(event) => {
+              event.preventDefault();
+              this.setState({ isSilent: true });
+            }}
+          >
+            Silent
+          </Button>
+        ) : null}
+
+        {this.state.apiData.noFly ? (
+          <Button
+            className="eventButton"
+            onClick={(event) => {
+              event.preventDefault();
+              this.setState({ canNoFly: true });
+            }}
+          >
+            No Fly
+          </Button>
+        ) : null}
+
         {this.state.canQuack ? this.quack() : null}
         {this.state.canFly ? this.fly() : null}
+        {this.state.canSqueak ? this.squeak() : null}
+        {this.state.isSilent ? this.silent() : null}
+        {this.state.canNoFly ? this.noFly() : null}
       </div>
     );
   }
@@ -208,43 +342,128 @@ class WoodDuck extends Duck {
     super();
     this.state = {
       canFly: false,
+      canNoFly: false,
       canQuack: false,
+      canSqueak: false,
+      isSilent: false,
+      quackSound: new Audio(quackSound),
+      squeakSound: new Audio(squeakSound),
+      apiData: [],
     };
   }
+
+  componentDidMount = async () => {
+    let { data } = await axios.get(`http://localhost:5000/ducks`);
+    this.setState({
+      apiData: data,
+    });
+
+    console.log(this.state.apiData);
+  };
+
   quack = () => {
-    const quack = new SilentSound();
+    const quack = new QuackSound();
     return quack.quack();
+    // const quack = new Duck();
+    // return quack.QuackSound();
   };
 
   fly = () => {
+    const fly = new FlyWings();
+    return fly.fly();
+  };
+  squeak = () => {
+    const quack = new SqueakSound();
+    return quack.quack();
+  };
+
+  noFly = () => {
     const fly = new NoFly();
     return fly.fly();
   };
 
+  silent = () => {
+    const quack = new SilentSound();
+    return quack.quack();
+  };
   render() {
     return (
       <div className="duck">
-        <img className="image" src={woodDuck} alt="woodDuck" />
-        <Button
-          className="eventButton"
-          onClick={(event) => {
-            event.preventDefault();
-            this.setState({ canFly: true });
+        <img
+          className={`image ${this.state.canFly ? "canFly" : ""}`}
+          src={woodDuck}
+          alt="woodDuck"
+          onAnimationEnd={() => {
+            this.setState({ canFly: false });
           }}
-        >
-          Fly
-        </Button>
-        <Button
-          className="eventButton"
-          onClick={(event) => {
-            event.preventDefault();
-            this.setState({ canQuack: true });
-          }}
-        >
-          Quack
-        </Button>
+        />
+        {this.state.apiData.flyWithWings ? (
+          <Button
+            className="eventButton"
+            onClick={(event) => {
+              event.preventDefault();
+              this.setState({ canFly: true });
+            }}
+          >
+            Fly
+          </Button>
+        ) : null}
+
+        {this.state.apiData.quack ? (
+          <Button
+            className="eventButton"
+            onClick={(event) => {
+              event.preventDefault();
+              this.setState({ canQuack: true });
+              this.state.quackSound.play();
+            }}
+          >
+            Quack
+          </Button>
+        ) : null}
+
+        {this.state.apiData.squeak ? (
+          <Button
+            className="eventButton"
+            onClick={(event) => {
+              event.preventDefault();
+              this.setState({ canSqueak: true });
+              this.state.squeakSound.play();
+            }}
+          >
+            Squeak
+          </Button>
+        ) : null}
+
+        {this.state.apiData.silent ? (
+          <Button
+            className="eventButton"
+            onClick={(event) => {
+              event.preventDefault();
+              this.setState({ isSilent: true });
+            }}
+          >
+            Silent
+          </Button>
+        ) : null}
+
+        {this.state.apiData.noFly ? (
+          <Button
+            className="eventButton"
+            onClick={(event) => {
+              event.preventDefault();
+              this.setState({ canNoFly: true });
+            }}
+          >
+            No Fly
+          </Button>
+        ) : null}
+
         {this.state.canQuack ? this.quack() : null}
         {this.state.canFly ? this.fly() : null}
+        {this.state.canSqueak ? this.squeak() : null}
+        {this.state.isSilent ? this.silent() : null}
+        {this.state.canNoFly ? this.noFly() : null}
       </div>
     );
   }
@@ -255,45 +474,128 @@ class ToyDuck extends Duck {
     super();
     this.state = {
       canFly: false,
+      canNoFly: false,
       canQuack: false,
+      canSqueak: false,
+      isSilent: false,
+      quackSound: new Audio(quackSound),
       squeakSound: new Audio(squeakSound),
+      apiData: [],
     };
   }
+
+  componentDidMount = async () => {
+    let { data } = await axios.get(`http://localhost:5000/ducks`);
+    this.setState({
+      apiData: data,
+    });
+
+    console.log(this.state.apiData);
+  };
+
   quack = () => {
+    const quack = new QuackSound();
+    return quack.quack();
+    // const quack = new Duck();
+    // return quack.QuackSound();
+  };
+
+  fly = () => {
+    const fly = new FlyWings();
+    return fly.fly();
+  };
+  squeak = () => {
     const quack = new SqueakSound();
     return quack.quack();
   };
 
-  fly = () => {
+  noFly = () => {
     const fly = new NoFly();
     return fly.fly();
   };
 
+  silent = () => {
+    const quack = new SilentSound();
+    return quack.quack();
+  };
   render() {
     return (
       <div className="duck">
-        <img className="image" src={toyDuck} alt="toyDuck" />
-        <Button
-          className="eventButton"
-          onClick={(event) => {
-            event.preventDefault();
-            this.setState({ canFly: true });
+        <img
+          className={`image ${this.state.canFly ? "canFly" : ""}`}
+          src={toyDuck}
+          alt="toyDuck"
+          onAnimationEnd={() => {
+            this.setState({ canFly: false });
           }}
-        >
-          Fly
-        </Button>
-        <Button
-          className="eventButton"
-          onClick={(event) => {
-            event.preventDefault();
-            this.setState({ canQuack: true });
-            this.state.squeakSound.play();
-          }}
-        >
-          Quack
-        </Button>
+        />
+        {this.state.apiData.flyWithWings ? (
+          <Button
+            className="eventButton"
+            onClick={(event) => {
+              event.preventDefault();
+              this.setState({ canFly: true });
+            }}
+          >
+            Fly
+          </Button>
+        ) : null}
+
+        {this.state.apiData.quack ? (
+          <Button
+            className="eventButton"
+            onClick={(event) => {
+              event.preventDefault();
+              this.setState({ canQuack: true });
+              this.state.quackSound.play();
+            }}
+          >
+            Quack
+          </Button>
+        ) : null}
+
+        {this.state.apiData.squeak ? (
+          <Button
+            className="eventButton"
+            onClick={(event) => {
+              event.preventDefault();
+              this.setState({ canSqueak: true });
+              this.state.squeakSound.play();
+            }}
+          >
+            Squeak
+          </Button>
+        ) : null}
+
+        {this.state.apiData.silent ? (
+          <Button
+            className="eventButton"
+            onClick={(event) => {
+              event.preventDefault();
+              this.setState({ isSilent: true });
+            }}
+          >
+            Silent
+          </Button>
+        ) : null}
+
+        {this.state.apiData.noFly ? (
+          <Button
+            className="eventButton"
+            onClick={(event) => {
+              event.preventDefault();
+              this.setState({ canNoFly: true });
+            }}
+          >
+            No Fly
+          </Button>
+        ) : null}
+
         {this.state.canQuack ? this.quack() : null}
         {this.state.canFly ? this.fly() : null}
+        {this.state.canSqueak ? this.squeak() : null}
+        {this.state.isSilent ? this.silent() : null}
+        {this.state.canNoFly ? this.noFly() : null}
       </div>
     );
   }
@@ -303,19 +605,18 @@ const App = () => {
   const [woodDuckList, setWoodDuckList] = useState([]);
   const [whiteDuckList, setWhiteDuckList] = useState([]);
   const [toyDuckList, setToyDuckList] = useState([]);
+  const [apiData, setApiData] = useState([]);
 
+  useEffect(() => {
+    apiDataa();
+  });
+
+  const apiDataa = async () => {
+    const { data } = await axios.get(`http://localhost:5000/ducks`);
+    setApiData(data);
+  };
   return (
     <div className="main">
-      <h1 className="heading1">SDP Assignment 1</h1>
-      <h1 className="heading2">Group-23</h1>
-      <div className="react">
-        <h1>This Project is Powered By</h1>
-        <img src={react} alt="react" />
-      </div>
-      <h2 className="heading3">
-        {" "}
-        Welcome to Sim U Duck. Choose your type of Duck !
-      </h2>
       <div className="menu">
         <Button
           className="buttoom"
@@ -364,6 +665,18 @@ const App = () => {
           Wood Duck
         </Button>
       </div>
+
+      <h1 className="behaviour"> Behaviour Available for the Ducks</h1>
+      <div className="behaviour">
+        {apiData.noFly ? <h1 className="apiData">{apiData.noFly}</h1> : null}
+        {apiData.flyWithWings ? (
+          <h1 className="apiData">{apiData.flyWithWings}</h1>
+        ) : null}
+        {apiData.quack ? <h1 className="apiData">{apiData.quack}</h1> : null}
+        {apiData.squeak ? <h1 className="apiData">{apiData.squeak}</h1> : null}
+        {apiData.silent ? <h1 className="apiData">{apiData.silent}</h1> : null}
+      </div>
+
       <div className="container">
         <div className="mallardDuck">
           {mallardDuckList.map((mallardDduck, index) => mallardDduck)}
