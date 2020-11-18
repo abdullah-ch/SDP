@@ -615,55 +615,65 @@ const App = () => {
     const { data } = await axios.get(`http://localhost:5000/ducks`);
     setApiData(data);
   };
+
   return (
     <div className="main">
       <div className="menu">
-        <Button
-          className="buttoom"
-          onClick={(event) => {
-            event.preventDefault();
-            setMallardDuckList(
-              mallardDuckList.concat(
-                <MallardDuck key={mallardDuckList.length} />
-              )
-            );
-          }}
-        >
-          Mallard Duck
-        </Button>
-        <Button
-          className="buttoom"
-          onClick={(event) => {
-            event.preventDefault();
-            setWhiteDuckList(
-              whiteDuckList.concat(<WhiteDuck key={whiteDuckList.length} />)
-            );
-          }}
-        >
-          White Duck
-        </Button>
-        <Button
-          className="buttoom"
-          onClick={(event) => {
-            event.preventDefault();
-            setToyDuckList(
-              toyDuckList.concat(<ToyDuck key={mallardDuckList.length} />)
-            );
-          }}
-        >
-          Toy Duck
-        </Button>
-        <Button
-          className="buttoom"
-          onClick={(event) => {
-            event.preventDefault();
-            setWoodDuckList(
-              woodDuckList.concat(<WoodDuck key={woodDuckList.length} />)
-            );
-          }}
-        >
-          Wood Duck
-        </Button>
+        {apiData.mallardDuck ? (
+          <Button
+            className="buttoom"
+            onClick={(event) => {
+              event.preventDefault();
+              setMallardDuckList(
+                mallardDuckList.concat(
+                  <MallardDuck key={mallardDuckList.length} />
+                )
+              );
+            }}
+          >
+            Mallard Duck
+          </Button>
+        ) : null}
+        {apiData.whiteDuck ? (
+          <Button
+            className="buttoom"
+            onClick={(event) => {
+              event.preventDefault();
+              setWhiteDuckList(
+                whiteDuckList.concat(<WhiteDuck key={whiteDuckList.length} />)
+              );
+            }}
+          >
+            White Duck
+          </Button>
+        ) : null}
+
+        {apiData.toyDuck ? (
+          <Button
+            className="buttoom"
+            onClick={(event) => {
+              event.preventDefault();
+              setToyDuckList(
+                toyDuckList.concat(<ToyDuck key={mallardDuckList.length} />)
+              );
+            }}
+          >
+            Toy Duck
+          </Button>
+        ) : null}
+        {apiData.woodDuck ? (
+          <Button
+            className="buttoom"
+            onClick={(event) => {
+              event.preventDefault();
+              setWoodDuckList(
+                woodDuckList.concat(<WoodDuck key={woodDuckList.length} />)
+              );
+            }}
+          >
+            Wood Duck
+          </Button>
+        ) : null}
       </div>
 
       <h1 className="behaviour"> Behaviour Available for the Ducks</h1>

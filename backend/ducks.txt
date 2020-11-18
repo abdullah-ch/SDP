@@ -1,3 +1,7 @@
 noFly
 quack
 squeak
+whiteDuck
+mallardDuck
+toyDuck
+woodDuck

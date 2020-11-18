@@ -10,6 +10,11 @@ let flyWithWings;
 let quack;
 let squeak;
 let silent;
+let mallardDuck;
+let whiteDuck;
+let toyDuck;
+let woodDuck;
+
 contents.forEach((content) => {
   if (content === "noFly") {
     noFly = content;
@@ -26,6 +31,19 @@ contents.forEach((content) => {
   if (content === "silent") {
     silent = content;
   }
+
+  if (content === "mallardDuck") {
+    mallardDuck = content;
+  }
+  if (content === "whiteDuck") {
+    whiteDuck = content;
+  }
+  if (content === "toyDuck") {
+    toyDuck = content;
+  }
+  if (content === "woodDuck") {
+    woodDuck = content;
+  }
 });
 const ducks = {
   noFly: noFly,
@@ -33,6 +51,10 @@ const ducks = {
   quack: quack,
   squeak: squeak,
   silent: silent,
+  woodDuck: woodDuck,
+  mallardDuck: mallardDuck,
+  whiteDuck: whiteDuck,
+  toyDuck: toyDuck,
 };
 
 router.get("/", async (req, res) => {
